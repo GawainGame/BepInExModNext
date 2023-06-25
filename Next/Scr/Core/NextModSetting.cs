@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using SkySwordKill.Next.Mod;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 
 namespace SkySwordKill.Next;
 
@@ -42,7 +43,7 @@ public class NextModSetting
         var filePath = Main.PathModSettingFile.Value;
         try
         {
-            var json = JsonConvert.SerializeObject(modSetting, Formatting.Indented);
+            var json = JsonConvertEx.SerializeObject(modSetting);
             File.WriteAllText(filePath,json);
         }
         catch (Exception e)

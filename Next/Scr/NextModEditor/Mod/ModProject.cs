@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SkySwordKill.Next.Mod;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 using SkySwordKill.NextModEditor.Mod.Data;
 
 namespace SkySwordKill.NextModEditor.Mod;
@@ -247,8 +248,7 @@ public class ModProject
         Directory.CreateDirectory(config.GetNDataDir());
             
         ModConfig.Save(config.GetConfigDir(), project.Config);
-        ModCreateAvatarData.Save(config.GetDataDir(),
-            project.CreateAvatarData);
+        ModCreateAvatarData.Save(config.GetDataDir(), project.CreateAvatarData);
         ModCreateAvatarSeidDataGroup.Save(config.GetDataDir(), project.CreateAvatarSeidDataGroup);
         ModBuffData.Save(config.GetDataDir(), project.BuffData);
         ModItemData.Save(config.GetDataDir(), project.ItemData);
@@ -266,5 +266,6 @@ public class ModProject
         ModStaticSkillData.Save(config.GetDataDir(), project.StaticSkillData);
         ModSkillSeidDataGroup.Save(config.GetDataDir(), project.SkillSeidDataGroup);
         ModStaticSkillSeidDataGroup.Save(config.GetDataDir(), project.StaticSkillSeidDataGroup);
+        DirectoryOperate.DeleteEmptyDirectory(dir);
     }
 }

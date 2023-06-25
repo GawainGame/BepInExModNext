@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using SkySwordKill.Next.Mod;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 
 namespace SkySwordKill.NextModEditor.Mod.Data;
 
@@ -48,7 +49,7 @@ public abstract class ModFolderFileData<T> : IModData where T : ModFolderFileDat
         foreach (var data in dataDic)
         {
             var filePath = $"{buffDir}/{data.Id}.json";
-            var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            var json = JsonConvertEx.SerializeObject(data);
             File.WriteAllText(filePath, json);
         }
     }

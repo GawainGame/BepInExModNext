@@ -12,6 +12,7 @@ using SkySwordKill.Next.Extension;
 using SkySwordKill.Next.I18N;
 using SkySwordKill.Next.Mod;
 using SkySwordKill.Next.ModGUI;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 using SkySwordKill.Next.StaticFace;
 using SkySwordKill.Next.XiaoYeGUI;
 using SkySwordKill.NextModEditor.Panel;
@@ -816,8 +817,7 @@ namespace SkySwordKill.Next
                                     var faceInfo = DialogAnalysis.GetNpcFaceInfo(npcData.ID);
                                     if (faceInfo != null)
                                     {
-                                        GUIUtility.systemCopyBuffer =
-                                            JsonConvert.SerializeObject(faceInfo, Formatting.Indented);
+                                        GUIUtility.systemCopyBuffer = JsonConvertEx.SerializeObject(faceInfo);
                                         LogInfo(string.Format("NpcDebug.Info.Func.ExportFaceInfo.Success".I18N(),
                                             npcData.ID, npcData.Name));
                                     }
@@ -858,7 +858,7 @@ namespace SkySwordKill.Next
                         if (GUILayout.Button($"Misc.ExportPlayerFace".I18N()))
                         {
                             var faceInfo = DialogAnalysis.GetNpcFaceInfo(1);
-                            inputPlayerFaceJson = JsonConvert.SerializeObject(faceInfo, Formatting.Indented);
+                            inputPlayerFaceJson = JsonConvertEx.SerializeObject(faceInfo);
                         }
 
                         if (GUILayout.Button($"Misc.ImportPlayerFace".I18N()))

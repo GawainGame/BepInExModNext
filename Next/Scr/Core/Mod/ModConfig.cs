@@ -5,6 +5,7 @@ using BepInEx;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SkySwordKill.Next.Extension;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 
 namespace SkySwordKill.Next.Mod;
 
@@ -176,7 +177,7 @@ public class ModConfig
     {
         string filePath = $"{dir}/modConfig.json";
 
-        var json = JsonConvert.SerializeObject(modConfig, Formatting.Indented);
+        var json = JsonConvertEx.SerializeObject(modConfig);
         File.WriteAllText(filePath, json);
     }
 }

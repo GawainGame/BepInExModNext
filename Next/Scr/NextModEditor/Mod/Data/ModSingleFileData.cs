@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using SkySwordKill.Next.Mod;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 
 namespace SkySwordKill.NextModEditor.Mod.Data;
 
@@ -46,7 +47,7 @@ public abstract class ModSingleFileData<T> : IModData where T : ModSingleFileDat
         var dataDic = dataList.ToDictionary(data => data.Id.ToString(), data => data);
         if (dataDic != null && dataDic.Count > 0)
         {
-            var json = JsonConvert.SerializeObject(dataDic, Formatting.Indented);
+            var json = JsonConvertEx.SerializeObject(dataDic);
             File.WriteAllText(filePath, json);
         }
         else

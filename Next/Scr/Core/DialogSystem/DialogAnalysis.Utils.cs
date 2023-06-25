@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using SkySwordKill.Next.Extension;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 using SkySwordKill.Next.StaticFace;
 using UnityEngine;
 using UnityEngine.Events;
@@ -210,7 +211,7 @@ public partial class DialogAnalysis
         {
             if (AvatarNextData == null)
                 AvatarNextData = new AvatarNextData();
-            File.WriteAllText(path, JsonConvert.SerializeObject(AvatarNextData, Formatting.Indented));
+            File.WriteAllText(path, JsonConvertEx.SerializeObject(AvatarNextData));
         }
         catch (Exception e)
         {

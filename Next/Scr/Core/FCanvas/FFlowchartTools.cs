@@ -6,6 +6,7 @@ using System.Reflection;
 using Cysharp.Threading.Tasks;
 using Fungus;
 using Newtonsoft.Json;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 using UnityEngine;
 
 namespace SkySwordKill.Next.FCanvas;
@@ -114,7 +115,7 @@ public static class FFlowchartTools
     private static void ExportFungusFlowchart(Flowchart flowchart, string outputPath)
     {
         var fFlowchart = flowchart.ConvertToFFlowchart();
-        var json = JsonConvert.SerializeObject(fFlowchart, Formatting.Indented);
+        var json = JsonConvertEx.SerializeObject(fFlowchart);
         var pathName = $"{outputPath}/{fFlowchart.Name}.json";
                     
         File.WriteAllText(pathName ,json);
