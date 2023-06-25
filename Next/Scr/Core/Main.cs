@@ -170,7 +170,7 @@ public partial class Main : BaseUnityPlugin
                 PathConfigDir.Value, "language"));
         PathModSettingFile =
             new Lazy<string>(() => Utility.CombinePaths(
-                BepInEx.Paths.GameRootPath, "nextModSetting.json"));
+                dllPath, "NextConfig", "nextModSetting.json"));
         PathInnerAssetDir =
             new Lazy<string>(() => Utility.CombinePaths(
                 dllPath, "NextAssets"));
