@@ -23,7 +23,7 @@ namespace SkySwordKill.Next;
 public partial class Main : BaseUnityPlugin
 {
     public const string MOD_VERSION = "0.8.3.1";
-        
+
     public static Lazy<string> PathLocalModsDir;
     public static Lazy<string> PathLibraryDir;
     public static Lazy<string> PathConfigDir;
@@ -35,28 +35,28 @@ public partial class Main : BaseUnityPlugin
     public static Lazy<string> PathInnerAssetDir;
     public static Lazy<string> PathBaseFungusDataDir;
     public static Lazy<string> PathAbDir;
-        
+
     public static Main Instance => I;
     public static Main I { get; private set; }
     public static ResourcesManager Res => I._resourcesManager;
     public static LuaManager Lua => I._luaManager;
     public static FGUIManager FGUI => I._fguiManager;
     public static FPatchManager FPatch => I._fPatchManager;
-        
+
     public static int LogIndent = 0;
-        
+
     public ConfigTarget<string> LanguageDir;
     public ConfigTarget<bool> DebugMode;
     public ConfigTarget<KeyCode> WinKeyCode;
 
     public NextLanguage CurrentLanguage { get; private set; }
     public NextModSetting NextModSetting;
-        
+
     private ResourcesManager _resourcesManager;
     private LuaManager _luaManager;
     private FGUIManager _fguiManager;
     private FPatchManager _fPatchManager;
-    
+
     private Dictionary<string, List<Action<Scene>>> _sceneLoadActions = new Dictionary<string, List<Action<Scene>>>();
 
     private void Awake()
@@ -72,7 +72,7 @@ public partial class Main : BaseUnityPlugin
     private void Init()
     {
         I = this;
-            
+
         InitDir();
 
         LanguageDir = Config.CreateConfig("Main.Language", "Plugin Language", "",
@@ -81,10 +81,10 @@ public partial class Main : BaseUnityPlugin
             "");
         DebugMode = Config.CreateConfig("Debug.Mode", "Debug Mode", false,
             "");
-            
+
         _resourcesManager = gameObject.AddComponent<ResourcesManager>();
         _resourcesManager.Init();
-            
+
         _luaManager = gameObject.AddComponent<LuaManager>();
         _luaManager.Init();
 
@@ -93,7 +93,7 @@ public partial class Main : BaseUnityPlugin
 
         _fPatchManager = gameObject.AddComponent<FPatchManager>();
         _fPatchManager.Init();
-            
+
         new Harmony("skyswordkill.plugin.Next").PatchAll();
 
         // 加载运行时脚本所需DLL
@@ -101,7 +101,7 @@ public partial class Main : BaseUnityPlugin
         Assembly.LoadFrom(Utility.CombinePaths(PathLibraryDir.Value, "Microsoft.CSharp.dll"));
         // Assembly.LoadFrom(Utility.CombinePaths(PathLibraryDir.Value, "System.Windows.Forms.dll"));
         // Assembly.LoadFrom(Utility.CombinePaths(PathLibraryDir.Value, "Ookii.Dialogs.dll"));
-        
+
         // 初始化语言与配置
         // Init language and config
         NextLanguage.InitLanguage();
@@ -109,7 +109,7 @@ public partial class Main : BaseUnityPlugin
         LoadModSetting();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
         RegisterSceneLoadEvent("MainMenu", scene =>
         {
             // 检查Mod重载情况
@@ -123,57 +123,38 @@ public partial class Main : BaseUnityPlugin
     private void AfterInit()
     {
         DialogAnalysis.Init();
-        
+
         ModSettingDefinitionListConverter.Init();
-        
+
         // 检查更新
         // Check Update
         Updater.CheckVersion();
-        
+
         _isWinOpen = false;
     }
 
     private void InitDir()
     {
+        //Next.dll程序集所在目录
         var dllPath = Directory.GetParent(typeof(Main).Assembly.Location).FullName;
-
-        PathLocalModsDir =
-            new Lazy<string>(() => BepInEx.Paths.GameRootPath + @"\本地Mod测试");
-        PathLibraryDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                dllPath,
-                "NextLib"));
-        PathConfigDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                dllPath,
-                "NextConfig"));
-        PathExportOutputDir = 
-            new Lazy<string>(() => Utility.CombinePaths(
-                dllPath,
-                "../OutPut"));
-        PathBaseDataDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                PathExportOutputDir.Value,
-                "Data"));
-        PathBaseFungusDataDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                PathExportOutputDir.Value, 
-                "Fungus"));
-        PathLuaLibDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                PathLibraryDir.Value, "Lua"));
-        PathAbDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                PathLibraryDir.Value, "AB"));
-        PathLanguageDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                PathConfigDir.Value, "language"));
-        PathModSettingFile =
-            new Lazy<string>(() => Utility.CombinePaths(
-                dllPath, "NextConfig", "nextModSetting.json"));
-        PathInnerAssetDir =
-            new Lazy<string>(() => Utility.CombinePaths(
-                dllPath, "NextAssets"));
+        //Next数据目录：Next
+        var nextDir = Path.Combine(dllPath, "Next");
+        //mod目录：Next\Mods
+        PathLocalModsDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "Mods"));
+        //目录：Next\NextLib
+        PathLibraryDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextLib"));
+        PathLuaLibDir = new Lazy<string>(() => Utility.CombinePaths(PathLibraryDir.Value, "Lua"));
+        PathAbDir = new Lazy<string>(() => Utility.CombinePaths(PathLibraryDir.Value, "AB"));
+        //目录：Next\NextConfig
+        PathConfigDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextConfig"));
+        PathLanguageDir = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "language"));
+        PathModSettingFile = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "nextModSetting.json"));
+        //目录：Next\OutPut
+        PathExportOutputDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "OutPut"));
+        PathBaseDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Data"));
+        PathBaseFungusDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Fungus"));
+        //目录：Next\NextAssets
+        PathInnerAssetDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextAssets"));
     }
 
     private void LoadDefaultLanguage()
@@ -189,10 +170,10 @@ public partial class Main : BaseUnityPlugin
         {
             SelectLanguage(language);
         }
-            
+
         LanguageDir.SetName("Config.Main.LanguageID.Name".I18N());
         LanguageDir.SetDesc("Config.Main.LanguageID.Desc".I18N());
-            
+
         WinKeyCode.SetName("Config.Main.OpenKeyCode.Name".I18N());
         WinKeyCode.SetDesc("Config.Main.OpenKeyCode.Desc".I18N());
 
@@ -206,7 +187,7 @@ public partial class Main : BaseUnityPlugin
 
         if (language == null)
             return;
-            
+
         LanguageDir.Value = language.LanguageDir;
         LogInfo($"{"Misc.CurrentLanguage".I18N()} : {language.Config.LanguageName}");
     }
@@ -215,7 +196,7 @@ public partial class Main : BaseUnityPlugin
     {
         NextModSetting = NextModSetting.LoadSetting();
     }
-    
+
     internal void SaveModSetting()
     {
         NextModSetting.SaveSetting(NextModSetting);
@@ -223,7 +204,7 @@ public partial class Main : BaseUnityPlugin
 
     private void OnSceneLoaded(Scene loadScene, LoadSceneMode loadSceneMode)
     {
-        if(_sceneLoadActions.TryGetValue(loadScene.name, out var actions))
+        if (_sceneLoadActions.TryGetValue(loadScene.name, out var actions))
         {
             foreach (var action in actions)
             {
@@ -247,12 +228,12 @@ public partial class Main : BaseUnityPlugin
         }
         list.Add(action);
     }
-    
+
     public static void LogLua(object obj)
     {
         I.Logger.LogInfo($"Lua:\t{obj}");
     }
-        
+
     public static void LogInfo(object obj)
     {
         I.Logger.LogInfo($"{GetIndent()}{obj}");
@@ -267,7 +248,7 @@ public partial class Main : BaseUnityPlugin
     {
         I.Logger.LogError($"{GetIndent()}{obj}");
     }
-        
+
     public static void LogDebug(object obj)
     {
         if (I.DebugMode.Value)
