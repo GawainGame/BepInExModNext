@@ -41,6 +41,12 @@ public class ModCreateAvatarData : ModSingleFileData<ModCreateAvatarData>
     [JsonProperty(PropertyName = "Info", Order = 9)]
     public string Info { get; set; } = string.Empty;
 
+    [JsonProperty(PropertyName = "UnlockKey", Order = 10)]
+    public string UnlockKey { get; set; } = string.Empty;
+
+    [JsonProperty(PropertyName = "UnlockDesc", Order = 11)]
+    public string UnlockDesc { get; set; } = string.Empty;
+
     public void SetTalentType(ModCreateAvatarDataTalentType type)
     {
         TalentType = type.TypeName;

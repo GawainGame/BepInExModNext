@@ -179,4 +179,10 @@ public class ModItemData : ModFolderFileData<ModItemData>
     /// </summary>
     [JsonProperty(PropertyName = "wuDao", Order = 20)]
     public List<int> StudyRequirement { get; set; } = new List<int>();
+
+    /// <summary>
+    /// 刷新
+    /// </summary>
+    [JsonProperty(PropertyName = "ShuaXin", Order = 20)]
+    public int ShuaXin { get; set; } = 0;
 }
