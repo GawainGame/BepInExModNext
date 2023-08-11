@@ -139,8 +139,8 @@ public partial class Main : BaseUnityPlugin
         var plugins = BepInEx.Paths.PluginPath;
         //Next数据目录：Next
         var nextDir = Path.Combine(plugins, "Next");
-        //mod目录：Next\Mods
-        PathLocalModsDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "Mods"));
+        //mod目录：Next
+        PathLocalModsDir = new Lazy<string>(() => nextDir);
         //目录：Next\NextLib
         PathLibraryDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextLib"));
         PathLuaLibDir = new Lazy<string>(() => Utility.CombinePaths(PathLibraryDir.Value, "Lua"));
