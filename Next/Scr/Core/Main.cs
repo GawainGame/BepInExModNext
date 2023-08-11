@@ -135,10 +135,10 @@ public partial class Main : BaseUnityPlugin
 
     private void InitDir()
     {
-        //Next.dll程序集所在目录
-        var dllPath = Directory.GetParent(typeof(Main).Assembly.Location).FullName;
+        //目录：plugins
+        var plugins = BepInEx.Paths.PluginPath;
         //Next数据目录：Next
-        var nextDir = Path.Combine(dllPath, "Next");
+        var nextDir = Path.Combine(plugins, "Next");
         //mod目录：Next\Mods
         PathLocalModsDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "Mods"));
         //目录：Next\NextLib

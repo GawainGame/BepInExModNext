@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>D:\Games\觅长生\BepInEx\plugins\</OutputPath>
+    <OutputPath>D:\Games\觅长生\BepInEx\plugins\Next\</OutputPath>
     <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_STANDALONE_WIN;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,9 +36,9 @@
     </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(SolutionDir)NextAssets\**" "$(OutDir)Next\NextAssets" /s /r /f /y /i
-XCOPY "$(SolutionDir)Next\NextConfig\**" "$(OutDir)Next\NextConfig" /s /r /f /y /i
-XCOPY "$(SolutionDir)Next\NextLib\**" "$(OutDir)Next\NextLib" /s /r /f /y /i</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(SolutionDir)NextAssets\**" "$(OutDir)NextAssets" /s /r /f /y /i
+XCOPY "$(SolutionDir)Next\NextConfig\**" "$(OutDir)NextConfig" /s /r /f /y /i
+XCOPY "$(SolutionDir)Next\NextLib\**" "$(OutDir)NextLib" /s /r /f /y /i</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
