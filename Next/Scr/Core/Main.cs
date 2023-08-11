@@ -149,8 +149,8 @@ public partial class Main : BaseUnityPlugin
         PathConfigDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextConfig"));
         PathLanguageDir = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "language"));
         PathModSettingFile = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "nextModSetting.json"));
-        //目录：Next\OutPut
-        PathExportOutputDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "OutPut"));
+        //plugins同级目录：NextOutPut
+        PathExportOutputDir = new Lazy<string>(() => Utility.CombinePaths(plugins, "../NextOutPut"));
         PathBaseDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Data"));
         PathBaseFungusDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Fungus"));
         //目录：Next\NextAssets
