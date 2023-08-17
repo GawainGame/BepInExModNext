@@ -128,7 +128,7 @@ public partial class Main : BaseUnityPlugin
 
         // 检查更新
         // Check Update
-        Updater.CheckVersion();
+        //Updater.CheckVersion();
 
         _isWinOpen = false;
     }
