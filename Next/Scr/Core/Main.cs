@@ -135,8 +135,10 @@ public partial class Main : BaseUnityPlugin
 
     private void InitDir()
     {
-        //Next数据目录：data\Next
-        var nextDir = Path.Combine(BepInEx.Paths.BepInExRootPath, "data", "Next");
+        //目录：plugins
+        var plugins = BepInEx.Paths.PluginPath;
+        //Next数据目录：Next
+        var nextDir = Path.Combine(plugins, "Next");
         //mod目录：Next\NextMod
         PathLocalModsDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextMod"));
         //目录：Next\NextLib
@@ -147,8 +149,8 @@ public partial class Main : BaseUnityPlugin
         PathConfigDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextConfig"));
         PathLanguageDir = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "language"));
         PathModSettingFile = new Lazy<string>(() => Utility.CombinePaths(PathConfigDir.Value, "nextModSetting.json"));
-        //目录：Next\NextOutPut
-        PathExportOutputDir = new Lazy<string>(() => Utility.CombinePaths(nextDir, "NextOutPut"));
+        //plugins同级目录：NextOutPut
+        PathExportOutputDir = new Lazy<string>(() => Utility.CombinePaths(BepInEx.Paths.BepInExRootPath, "NextOutPut"));
         PathBaseDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Data"));
         PathBaseFungusDataDir = new Lazy<string>(() => Utility.CombinePaths(PathExportOutputDir.Value, "Fungus"));
         //目录：Next\NextAssets
