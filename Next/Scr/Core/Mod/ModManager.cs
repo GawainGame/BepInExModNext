@@ -773,7 +773,7 @@ public static class ModManager
                         jsonObject.AddField(key, curData);
                     }
                 }
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),$"{dirName}{fileName}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),$"{dirName}{fileName}.json"));
             }
         }
         catch (Exception e)
@@ -835,8 +835,8 @@ public static class ModManager
                     }
                 }
                 
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{Path.GetFileNameWithoutExtension(filePath)}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{Path.GetFileNameWithoutExtension(filePath)}.json"));
             }
         }
         catch (Exception e)
@@ -885,8 +885,8 @@ public static class ModManager
                     toJsonObject.AddField(key, curData);
                 }
                 
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{Path.GetFileNameWithoutExtension(dirPathForData)}/{Path.GetFileNameWithoutExtension(filePath)}.json [{key}]"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{Path.GetFileNameWithoutExtension(dirPathForData)}/{Path.GetFileNameWithoutExtension(filePath)}.json [{key}]"));
             }
             catch (Exception e)
             {
@@ -924,8 +924,8 @@ public static class ModManager
                     dictionary[intKey] = curData;
                 }
                 
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{Path.GetFileNameWithoutExtension(dirPathForData)}/{Path.GetFileNameWithoutExtension(filePath)}.json [{key}]"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{Path.GetFileNameWithoutExtension(dirPathForData)}/{Path.GetFileNameWithoutExtension(filePath)}.json [{key}]"));
             }
             catch (Exception e)
             {
@@ -997,8 +997,8 @@ public static class ModManager
             {
                 string json = File.ReadAllText(filePath);
                 JArray.Parse(json).ToObject<List<DialogEventData>>()?.ForEach(TryAddEventData);
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
             }
             catch (Exception e)
             {
@@ -1019,8 +1019,8 @@ public static class ModManager
             {
                 string json = File.ReadAllText(filePath);
                 JArray.Parse(json).ToObject<List<DialogTriggerData>>()?.ForEach(TryAddTriggerData);
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
             }
             catch (Exception e)
             {
@@ -1042,8 +1042,8 @@ public static class ModManager
                 var jObject = LoadJObject(filePath);
                 var faceData = jObject.ToObject<CustomStaticFaceInfo>();
                 StaticFaceUtils.RegisterFace(faceData);
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
             }
             catch (Exception e)
             {
@@ -1068,8 +1068,8 @@ public static class ModManager
                 {
                     Main.FPatch.AddPatch(fPatch);
                 }
-                Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
-                    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
+                //Main.LogInfo(string.Format("ModManager.LoadData".I18N(),
+                //    $"{dirName}/{Path.GetFileNameWithoutExtension(filePath)}.json"));
             }
             catch (Exception e)
             {

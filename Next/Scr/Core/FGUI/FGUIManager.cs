@@ -208,7 +208,7 @@ public class FGUIManager : MonoBehaviour
             if (asset is Shader shader)
             {
                 ShaderMap.Add(shader.name, shader);
-                Main.LogInfo($"[FGUI]加载Shader：{shader.name}");
+                //Main.LogInfo($"[FGUI]加载Shader：{shader.name}");
             }
         }
     }
@@ -239,7 +239,7 @@ public class FGUIManager : MonoBehaviour
     {
         destroyMethod = DestroyMethod.None;
         string tagPath = name + extension;
-        Main.LogDebug($"[FGUI]加载文件：<{type}> {tagPath}");
+        //Main.LogDebug($"[FGUI]加载文件：<{type}> {tagPath}");
         if (Main.Res.HaveAsset(tagPath))
         {
             if (Main.Res.TryGetAsset(tagPath, out var asset))
@@ -247,7 +247,7 @@ public class FGUIManager : MonoBehaviour
                 return asset;
             }
         }
-        Main.LogWarning($"[FGUI]不存在文件：<{type}> {tagPath}");
+        //Main.LogWarning($"[FGUI]不存在文件：<{type}> {tagPath}");
         return null;
     }
 

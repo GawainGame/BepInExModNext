@@ -20,7 +20,7 @@ public class NextLanguage
     {
         Languages.Clear();
             
-        Main.LogInfo($"Load language folder : {Main.PathLanguageDir.Value}");
+        //Main.LogInfo($"Load language folder : {Main.PathLanguageDir.Value}");
         var languageDir = Directory.GetDirectories(Main.PathLanguageDir.Value);
         foreach (var dir in languageDir)
         {

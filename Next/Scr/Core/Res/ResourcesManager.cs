@@ -273,7 +273,7 @@ public class ResourcesManager : MonoBehaviour
         }
         else
         {
-            Main.LogInfo($"添加Asset ({key})");
+            //Main.LogInfo($"添加Asset ({key})");
         }
         fileAssets[key] = fileAsset;
     }

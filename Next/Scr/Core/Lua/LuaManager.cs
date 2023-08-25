@@ -13,9 +13,9 @@ public class LuaManager : MonoBehaviour
 
     public void Init()
     {
-        Main.LogInfo($"开始加载xlua.dll");
+        //Main.LogInfo($"开始加载xlua.dll");
         DllTools.LoadDllFile(Main.PathLibraryDir.Value, "xlua.dll" );
-        Main.LogInfo($"加载完毕");
+        //Main.LogInfo($"加载完毕");
         InitLuaEnv();
     }
 
