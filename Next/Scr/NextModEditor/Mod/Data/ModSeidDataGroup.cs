@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SkySwordKill.Next.DialogSystem;
 using SkySwordKill.Next.Extension;
 using SkySwordKill.Next.Mod;
+using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
 
 namespace SkySwordKill.NextModEditor.Mod.Data;
 
@@ -74,6 +76,6 @@ public class ModSeidDataGroup
             jObject.Add(seidData.Id.ToString(),jsonData);
         }
 
-        File.WriteAllText(filePath, jObject.ToString(Formatting.Indented));
+        File.WriteAllText(filePath, JsonConvertEx.SerializeObject(jObject));
     }
 }
