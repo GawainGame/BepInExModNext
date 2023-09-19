@@ -152,7 +152,7 @@ public class ResourcesManager : MonoBehaviour
         asset = null;
         return false;
     }
-        
+
     /// <summary>
     /// 获取FileAsset，可以通过FileAsset获取资源原始位置及加载信息等
     /// </summary>

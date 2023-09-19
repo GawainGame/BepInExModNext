@@ -372,7 +372,7 @@ public static class ModManager
             Main.LogError(CheckData.log);
         }
     }
-        
+
     /// <summary>
     /// 重载mod元数据
     /// </summary>
