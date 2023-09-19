@@ -22,8 +22,8 @@ namespace SkySwordKill.Next;
 [BepInPlugin("skyswordkill.plugin.Next", "Next", MOD_VERSION)]
 public partial class Main : BaseUnityPlugin
 {
-    public const string MOD_VERSION = "0.8.3.1";
-
+    public const string MOD_VERSION = "0.8.4";
+        
     public static Lazy<string> PathLocalModsDir;
     public static Lazy<string> PathLibraryDir;
     public static Lazy<string> PathConfigDir;
@@ -58,6 +58,7 @@ public partial class Main : BaseUnityPlugin
     private FPatchManager _fPatchManager;
 
     private Dictionary<string, List<Action<Scene>>> _sceneLoadActions = new Dictionary<string, List<Action<Scene>>>();
+    private Action _updateActions = null;
 
     private void Awake()
     {
@@ -108,8 +109,11 @@ public partial class Main : BaseUnityPlugin
         LoadDefaultLanguage();
         LoadModSetting();
 
+        // 注册事件
         SceneManager.sceneLoaded += OnSceneLoaded;
-
+        
+        RegisterUpdateEvent(OnPanelUpdate);
+        
         RegisterSceneLoadEvent("MainMenu", scene =>
         {
             // 检查Mod重载情况
@@ -128,8 +132,8 @@ public partial class Main : BaseUnityPlugin
 
         // 检查更新
         // Check Update
-        //Updater.CheckVersion();
-
+        Updater.CheckVersion();
+        
         _isWinOpen = false;
     }
 
@@ -218,6 +222,21 @@ public partial class Main : BaseUnityPlugin
                 }
             }
         }
+    }
+
+    private void Update()
+    {
+        _updateActions?.Invoke();
+    }
+    
+    public void RegisterUpdateEvent(Action action)
+    {
+        _updateActions += action;
+    }
+    
+    public void UnRegisterUpdateEvent(Action action)
+    {
+        _updateActions -= action;
     }
 
     public void RegisterSceneLoadEvent(string sceneName, Action<Scene> action)

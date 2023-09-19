@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SkySwordKill.Next.DialogSystem;
 using SkySwordKill.Next.Extension;
 using SkySwordKill.Next.Mod;
 using SkySwordKill.Next.Scr.NextModEditor.Mod.CommonClass;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SkySwordKill.NextModEditor.Mod.Data;
 

@@ -377,6 +377,7 @@ public static class ModManager
     /// 重载mod元数据
     /// </summary>
     /// <param name="resetModState">是否重置Mod状态</param>
+    /// <param name="showLog"></param>
     public static void ReloadModMeta(bool resetModState,bool showLog = false)
     {
         if (resetModState)
@@ -1091,8 +1092,9 @@ public static class ModManager
                 FilePath = filePath
                     .Replace(@"\", @"/"),
             };
-            var luaPath = Path.GetFileNameWithoutExtension(virtualPath)
-                .Replace(@"\", @"/");
+            var luaPath = virtualPath.Substring(0, virtualPath.Length - 4).Replace(@"\", @"/");
+            if(luaPath.StartsWith("/"))
+                luaPath = luaPath.Substring(1);
 
             try
             {

@@ -63,7 +63,15 @@ public class ResourcesManager : MonoBehaviour
         foreach (var directory in Directory.GetDirectories(dirPath))
         {
             var name = Path.GetFileNameWithoutExtension(directory);
-            DirectoryHandle($"{rootPath}/{name}", directory, fileHandle);
+            if (string.IsNullOrEmpty(rootPath))
+            {
+                DirectoryHandle($"{name}", directory, fileHandle);
+            }
+            else
+            {
+                DirectoryHandle($"{rootPath}/{name}", directory, fileHandle);
+            }
+            
         }
 
         foreach (var file in Directory.GetFiles(dirPath))
@@ -149,7 +157,7 @@ public class ResourcesManager : MonoBehaviour
     /// 获取FileAsset，可以通过FileAsset获取资源原始位置及加载信息等
     /// </summary>
     /// <param name="path"></param>
-    /// <param name="asset"></param>
+    /// <param name="fileAsset"></param>
     /// <returns></returns>
     public bool TryGetFileAsset(string path,out FileAsset fileAsset)
     {
