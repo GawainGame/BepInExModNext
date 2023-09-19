@@ -20,20 +20,20 @@ public static class ExtensionUtils
             jsonObject.list[index] = value.Copy();
         }
     }
-        
+
     public static void TryAddOrReplace(this JObject jsonObject, string key, JToken value)
     {
         if (jsonObject.ContainsKey(key))
             jsonObject.Remove(key);
-        jsonObject.Add(key,value);
+        jsonObject.Add(key, value);
     }
-        
+
     public static string DecodeJsonUnicode(this string json)
     {
         Regex reg = new Regex(@"(?i)\\[uU]([0-9a-f]{4})");
         string convertSrt = reg.Replace(json,
-            delegate(Match m) { return ((char)Convert.ToInt32(m.Groups[1].Value, 16)).ToString(); });
-        return convertSrt;
+            delegate (Match m) { return ((char)Convert.ToInt32(m.Groups[1].Value, 16)).ToString(); });
+        return convertSrt.Replace("\t", "    ");
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public static class ExtensionUtils
     {
         return NextLanguage.Get(Main.I.CurrentLanguage, key);
     }
-        
+
     /// <summary>
     /// 待国际化的文本
     /// </summary>
