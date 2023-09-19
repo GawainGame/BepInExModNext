@@ -19,7 +19,7 @@ public class ModEditorMainPanel : FGUIPanelBase
 {
     public ModEditorMainPanel() : base("NextCore", "ModEditorMainPanel")
     {
-            
+
     }
 
     private UI_ModEditorMainPanel MainView => (UI_ModEditorMainPanel)contentPane;
@@ -27,17 +27,17 @@ public class ModEditorMainPanel : FGUIPanelBase
     private CtlTreeProject TreeProject { get; set; }
     private CtlDocumentView DocumentView { get; set; }
     private ModDataClipboard DataClipboard { get; set; }
-        
+
     private ModWorkshop CurMod { get; set; }
 
     protected override void OnInit()
     {
         base.OnInit();
         DataClipboard = new ModDataClipboard();
-            
+
         InitProject();
         InitHeader();
-            
+
         FGUIUtils.BindHSeg(MainView.m_seg, () => MainView.width * 0.1f, () => MainView.width * 0.9f);
         MakeFullScreenAndCenter();
     }
@@ -69,7 +69,7 @@ public class ModEditorMainPanel : FGUIPanelBase
                         callback();
                     }
                 });
-            }, 
+            },
             context =>
             {
                 if (context.Exception != null)
@@ -88,7 +88,7 @@ public class ModEditorMainPanel : FGUIPanelBase
                             });
                     }
                 }
-                    
+
             });
     }
 
@@ -114,27 +114,27 @@ public class ModEditorMainPanel : FGUIPanelBase
 
         TreeProject.SetClickItem((context, node) =>
         {
-            if(!context.inputEvent.isDoubleClick)
+            if (!context.inputEvent.isDoubleClick)
                 return;
-                
-            if(!node.IsLeaf)
+
+            if (!node.IsLeaf)
                 return;
-                
-            if(CurMod == null)
+
+            if (CurMod == null)
                 return;
-                
+
             if (node is IDocumentItem item)
             {
                 DocumentView.TryAddAndSelectTab(item);
             }
         });
-            
+
         TreeProject.SetRightClickItem((context, node) =>
         {
             var popup = ProjectPopupBuild(node);
             popup.Show(null, PopupDirection.Down);
         });
-            
+
         DocumentView.OnTabAdd += (page) =>
         {
             if (page is IModDataClipboardPage clipboardPage)
@@ -151,7 +151,7 @@ public class ModEditorMainPanel : FGUIPanelBase
         var project = node as ProjectTreeModProject;
         var isProject = project != null;
         var popMenu = new PopupMenu();
-            
+
         popMenu.AddItem("新建项目".I18NTodo(), OnCreateProject);
         popMenu.AddSeperator();
         if (isProject)
@@ -161,20 +161,20 @@ public class ModEditorMainPanel : FGUIPanelBase
         }
         else
         {
-            popMenu.AddItem("重命名".I18NTodo(), () => {}).enabled = false;
-            popMenu.AddItem("删除".I18NTodo(), () => {}).enabled = false;
-                
+            popMenu.AddItem("重命名".I18NTodo(), () => { }).enabled = false;
+            popMenu.AddItem("删除".I18NTodo(), () => { }).enabled = false;
+
         }
-            
+
         return popMenu;
     }
 
     private void OnCreateProject()
     {
-        if(CurMod == null)
+        if (CurMod == null)
             return;
-            
-        WindowStringInputDialog.CreateDialog("新建项目", "mod Project", true, 
+
+        WindowStringInputDialog.CreateDialog("新建项目", "mod Project", true,
             (newName) =>
             {
                 if (string.IsNullOrEmpty(newName))
@@ -182,8 +182,8 @@ public class ModEditorMainPanel : FGUIPanelBase
                     WindowConfirmDialog.CreateDialog("创建失败", "项目名称不能为空", false);
                     return;
                 }
-                var newPath = CurMod.Path;
-                if(Directory.Exists(newPath))
+                var newPath = Path.Combine(CurMod.ProjectDirPath, newName);
+                if (Directory.Exists(newPath))
                 {
                     WindowConfirmDialog.CreateDialog("创建失败", "项目目录已存在", false);
                     return;
@@ -194,14 +194,14 @@ public class ModEditorMainPanel : FGUIPanelBase
                 TreeProject.Refresh();
             });
     }
-        
+
     private void OnRemoveProject(ModProject project)
     {
-        if(CurMod == null)
+        if (CurMod == null)
             return;
-            
-        WindowConfirmDialog.CreateDialog("删除", 
-            $"确定删除项目【{project.ProjectName}】？该操作无法撤回。", 
+
+        WindowConfirmDialog.CreateDialog("删除",
+            $"确定删除项目【{project.ProjectName}】？该操作无法撤回。",
             true,
             () =>
             {
@@ -211,13 +211,13 @@ public class ModEditorMainPanel : FGUIPanelBase
                 TreeProject.Refresh();
             });
     }
-        
+
     private void OnRenameProject(ModProject project)
     {
-        if(CurMod == null)
+        if (CurMod == null)
             return;
-            
-        WindowStringInputDialog.CreateDialog("重命名", 
+
+        WindowStringInputDialog.CreateDialog("重命名",
             project.ProjectName,
             true,
             rename =>
@@ -241,13 +241,13 @@ public class ModEditorMainPanel : FGUIPanelBase
     }
 
     #endregion
-        
+
     #region HeadbarFunction
-        
+
     private void InitHeader()
     {
         // Root
-        HeaderBar.AddMenu("ModEditor.Main.Header.File".I18N(), FilePopupBuild);    
+        HeaderBar.AddMenu("ModEditor.Main.Header.File".I18N(), FilePopupBuild);
     }
 
     private PopupMenu FilePopupBuild()
@@ -258,13 +258,13 @@ public class ModEditorMainPanel : FGUIPanelBase
         var btnSave = popMenu.AddItem("ModEditor.Main.Header.File.Save".I18N(), OnClickFileSave);
         var btnExport = popMenu.AddItem("ModEditor.Main.Header.File.Export".I18N(), OnClickFileExport);
         popMenu.AddItem("ModEditor.Main.Header.File.Exit".I18N(), OnClickFileExit);
-            
+
         if (CurMod == null)
         {
             btnSave.enabled = false;
             btnExport.enabled = false;
         }
-            
+
         return popMenu;
     }
 
@@ -281,7 +281,7 @@ public class ModEditorMainPanel : FGUIPanelBase
     private void OnClickFileOpen()
     {
         WindowModSelectorDialog.CreateDialog("打开工坊工程".I18NTodo(),
-            ModFilter.Local, 
+            ModFilter.Local,
             new List<TableInfo>()
             {
                 new TableInfo("名称", TableInfo.DEFAULT_GRID_WIDTH * 3, o => ((ModWorkshop)o).ModInfo.Title),
@@ -289,18 +289,18 @@ public class ModEditorMainPanel : FGUIPanelBase
             },
             OnOpenMod);
     }
-        
+
     private void OnClickFileSave()
     {
-        if(CurMod == null)
+        if (CurMod == null)
             return;
-            
+
         OnSaveMod(CurMod, CurMod.Path);
     }
-        
+
     private void OnClickFileExport()
     {
-        if(CurMod == null)
+        if (CurMod == null)
             return;
         //
         // var dialog = new FolderPicker();
@@ -310,7 +310,7 @@ public class ModEditorMainPanel : FGUIPanelBase
         // {
         //     
         // }
-            
+
         var folderPicker = new FolderPicker();
         folderPicker.Title = "Mod选择文件夹";
         bool? flag = folderPicker.ShowDialog(IntPtr.Zero, false);
